@@ -1,0 +1,42 @@
+{
+    "id": "/signup",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "merchant on signup",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "first_name",
+        "last_name",
+        "mobile_number",
+        "email_id"
+    ],
+    "properties": {
+        "first_name": {
+            "type": "string"
+        },
+        "last_name": {
+            "type": "string"
+        },
+        "mobile_number": {
+            "type": "string",
+            "maxLength": 10,
+            "minLength": 10
+        },
+        "email_id": {
+            "type": "string"
+        },
+        "password": {
+            "type": "string",
+            "maxLength": 6
+        },
+        "is_active": {
+            "type": "boolean"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        }
+    }
+}
