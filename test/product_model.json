@@ -1,0 +1,21 @@
+[{
+    "name":"String",
+    "description":"String",
+    "currency":"String",
+    "mrp":"String",
+    "selling_price":"String",
+    "product_properties":{
+        "colors":[],
+        "sizes":["enum"],
+        "images":[],
+        "technical_details":{
+            "name":"String",
+            "value":"String"
+        },
+        "additional_details":{
+            "name":"String",
+            "value":"String"
+        }
+    },
+    "is_returnable":"bool"
+}]
