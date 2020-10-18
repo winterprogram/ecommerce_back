@@ -1,42 +1,54 @@
 {
-    "id": "/signup",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "merchant on signup",
-    "type": "object",
-    "additionalProperties": false,
-    "required": [
-        "first_name",
-        "last_name",
-        "mobile_number",
-        "email_id"
-    ],
-    "properties": {
-        "first_name": {
-            "type": "string"
+  "id": "/signup",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "merchant on signup",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "mobile_number", "dob", "email_id", "password"],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "mobile_number": {
+      "type": "string",
+      "maxLength": 10,
+      "minLength": 10
+    },
+    "dob": {
+      "type": "string"
+    },
+    "email_id": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string",
+      "minLength": 6
+    },
+    "addresses": {
+      "type": "object",
+      "properties": {
+        "home": {
+          "type": "array",
+          "items": {
+            "$ref": "/address#properties"
+          }
         },
-        "last_name": {
-            "type": "string"
-        },
-        "mobile_number": {
-            "type": "string",
-            "maxLength": 10,
-            "minLength": 10
-        },
-        "email_id": {
-            "type": "string"
-        },
-        "password": {
-            "type": "string",
-            "maxLength": 6
-        },
-        "is_active": {
-            "type": "boolean"
-        },
-        "created_at": {
-            "type": "string"
-        },
-        "updated_at": {
-            "type": "string"
+        "office": {
+          "type": "array",
+          "items": {
+            "$ref": "/address#properties"
+          }
         }
+      }
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
     }
+  }
 }
