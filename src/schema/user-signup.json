@@ -30,13 +30,25 @@
         "home": {
           "type": "array",
           "items": {
-            "$ref": "/address#properties"
+            "type": "object",
+            "properties": {
+              "street_address": { "type": "string" },
+              "city": { "type": "string" },
+              "state": { "type": "string" },
+              "pincode": { "type": "string" }
+            }
           }
         },
         "office": {
           "type": "array",
           "items": {
-            "$ref": "/address#properties"
+            "type": "object",
+            "properties": {
+              "street_address": { "type": "string" },
+              "city": { "type": "string" },
+              "state": { "type": "string" },
+              "pincode": { "type": "string" }
+            }
           }
         }
       }
