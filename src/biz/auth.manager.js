@@ -23,7 +23,7 @@ class AuthManager extends BaseManager {
     try {
       const validationResult = this.validate(SCHEMA.USER_SIGNUP, bodyParams);
       if (validationResult.valid) {
-        var { mobile_number, email_id, password } = bodyParams;
+        let { mobile_number, email_id, password } = bodyParams;
 
         const checkDuplicate = await this._authRepository.findOne(
           mobile_number,
@@ -32,13 +32,13 @@ class AuthManager extends BaseManager {
 
         if (checkDuplicate) {
           bodyParams.user_id = randomize("Aa0", 5);
-          password = await bcrypt.hash(password, saltRounds);
+          bodyParams.password = await bcrypt.hash(password, saltRounds);
           const saveMerchantData = await this._authRepository.saveOne(
             bodyParams
           );
           return saveMerchantData;
         }
-        throw new DuplicateError(MSG.DUPLICATE_MERCHANT);
+        throw new DuplicateError(MSG.DUPLICATE_USER);
       }
       throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
     } catch (err) {
