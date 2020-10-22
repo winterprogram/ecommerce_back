@@ -21,22 +21,9 @@ class AuthManager extends BaseManager {
 
   async signUp(bodyParams) {
     try {
-      const validationResult = this.validate(
-        SCHEMA.MERCHANT_SIGNUP,
-        bodyParams
-      );
+      const validationResult = this.validate(SCHEMA.USER_SIGNUP, bodyParams);
       if (validationResult.valid) {
-        const {
-          name,
-          dob,
-          mobile_number,
-          email_id,
-          password,
-          addresses,
-          is_active,
-          created_at,
-          updated_at,
-        } = bodyParams;
+        let { mobile_number, email_id, password } = bodyParams;
 
         const checkDuplicate = await this._authRepository.findOne(
           mobile_number,
@@ -45,13 +32,13 @@ class AuthManager extends BaseManager {
 
         if (checkDuplicate) {
           bodyParams.user_id = randomize("Aa0", 5);
-          password = await bcrypt.hash(password, saltRounds);
+          bodyParams.password = await bcrypt.hash(password, saltRounds);
           const saveMerchantData = await this._authRepository.saveOne(
             bodyParams
           );
           return saveMerchantData;
         }
-        throw new DuplicateError(MSG.DUPLICATE_MERCHANT);
+        throw new DuplicateError(MSG.DUPLICATE_USER);
       }
       throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
     } catch (err) {
@@ -61,7 +48,7 @@ class AuthManager extends BaseManager {
 
   async login(bodyParams) {
     try {
-      const validationResult = this.validate(SCHEMA.MERCHANT_LOGIN, bodyParams);
+      const validationResult = this.validate(SCHEMA.USER_LOGIN, bodyParams);
 
       if (validationResult.valid) {
         const { mobile_number, password } = bodyParams;
