@@ -12,7 +12,9 @@ app.use(bodyParser.urlencoded());
 
 async function mongoDBConnection() {
     try {
-        await mongoose.connect(`${process.env.MONGO_URL}`, { useNewUrlParser: true });
+        await mongoose.connect(`${process.env.MONGO_URL}`, {
+            useNewUrlParser: true
+        });
     } catch (err) {
         throw err;
     }

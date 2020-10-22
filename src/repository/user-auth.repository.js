@@ -1,10 +1,28 @@
 const Signup = require('../model/SignUp');
+const MONGOPROXY = require('../proxy/trips-management.proxy');
+
 
 class AuthRepository {
-
+    constructor() {
+        this.proxy = new MONGOPROXY();
+    }
     async findOne(mobile_number, email_id) {
         try {
-            const q = await Signup.find({
+            // const q = await Signup.find({
+            //     $and: [
+            //         {
+            //             $or: [
+            //                 { mobile_number },
+            //                 { email_id }
+            //             ]
+            //         },
+            //         {
+            //             is_active: true
+            //         }
+            //     ]
+            // }).lean().exec();
+
+            const q = {
                 $and: [
                     {
                         $or: [
@@ -16,10 +34,13 @@ class AuthRepository {
                         is_active: true
                     }
                 ]
-            }).lean().exec();
+            };
+            let p = this.proxy.get(q);
+            return p;
             if (!q.length) {
                 return true;
             }
+
             return null;
         } catch (err) {
             throw err;

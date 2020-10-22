@@ -22,7 +22,8 @@ Resources:
   merchantFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/index.handlers
+      CodeUri: src/
+      Handler: index.handlers
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
