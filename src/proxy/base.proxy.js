@@ -40,30 +40,14 @@ class BaseProxy {
         return this._exec(options);
     }
 
-    // async fetch(query, variables) {
-    //     let f = createApolloFetch({
-    //         uri: this.baseUrl
-    //     });
-    //     f.use(({ options }, next) => {
-    //         if (!options.headers) {
-    //             options.headers = {};  // Create the headers object if needed.
-    //         }
-    //         const authorization = httpContext.get(HEADER.AUTHORIZATION);
-    //         if (authorization) {
-    //             options.headers[HEADER.AUTHORIZATION] = authorization;
-    //         }
-    //         next();
-    //     });
-    //     return f({
-    //         query: query,
-    //         variables: variables
-    //     });
-    // }
-
     async _exec(options) {
         return new Promise((resolve, reject) => {
-            // console.info(options);
-            request(options, function (error, response) {
+            console.info(options);
+            request({
+                uri: options.uri,
+                method: options.method,
+                form: options.body
+            }, function (error, response) {
                 if (error) return reject(error);
                 if (response.statusCode >= 200 && response.statusCode < 300) {
                     try {
@@ -71,13 +55,10 @@ class BaseProxy {
                     } catch (error) {
                         resolve(response.body);
                     }
-                } else if (response.statusCode >= 400 && response.statusCode < 500) {
+                } else if (response.statusCode >= 400 && response.statusCode <= 500) {
                     // TODO: Parse response body if its json and return the actual error
-                    let msg = BaseProxy.getMessage(response.body, MSG.RESOURCE_NOT_FOUND);
-                    resolve({
-                        message: msg,
-                        status: response.statusCode
-                    });
+                    // let msg = BaseProxy.getMessage(response.body, MSG.RESOURCE_NOT_FOUND);
+                    reject(JSON.parse(response.body));
                 } else {
                     let msg = BaseProxy.getMessage(response.body, MSG.HTTP_PROXY_ERROR);
                     resolve({
