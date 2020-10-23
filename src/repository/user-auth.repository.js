@@ -1,10 +1,14 @@
 const Signup = require('../model/SignUp');
 const MONGOPROXY = require('../proxy/base.proxy');
+const OptionsClass = require('../proxy/options.proxy');
+
+const DbName = require('../constant/dbName');
 
 
 class AuthRepository {
     constructor() {
         this.proxy = new MONGOPROXY();
+        this.options = new OptionsClass();
     }
     async findOne(mobile_number, email_id) {
         try {
@@ -21,13 +25,14 @@ class AuthRepository {
                     }
                 ]
             };
-            let options = {};
-            options.uri = `${process.env.MONGO_PROXY_URL}/find`;
-            options.body = {
-                collection: 'userInfo',
+            let body = {
+                database: DbName.DB_NAME,
                 body: q,
-                database: 'ecomm_backend'
+                collection: DbName.USER_INFO
             };
+            let uri = `${process.env.MONGO_PROXY_URL}/find`;
+            let options = this.options(uri, body);
+            
             let p = await this.proxy.post(options);
             if (!p.length) {
                 return true;
