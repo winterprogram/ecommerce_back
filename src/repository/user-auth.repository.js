@@ -24,9 +24,9 @@ class AuthRepository {
             let options = {};
             options.uri = `${process.env.MONGO_PROXY_URL}/find`;
             options.body = {
-                collection: 'merchants',
+                collection: 'userInfo',
                 body: q,
-                database: 'merchantsignups'
+                database: 'ecomm_backend'
             };
             let p = await this.proxy.post(options);
             if (!p.length) {
