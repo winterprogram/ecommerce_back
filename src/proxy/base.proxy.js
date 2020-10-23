@@ -42,11 +42,11 @@ class BaseProxy {
 
     async _exec(options) {
         return new Promise((resolve, reject) => {
-            console.info(options);
+            const { uri, method, body } = options;
             request({
-                uri: options.uri,
-                method: options.method,
-                form: options.body
+                uri,
+                method,
+                form: body
             }, function (error, response) {
                 if (error) return reject(error);
                 if (response.statusCode >= 200 && response.statusCode < 300) {
