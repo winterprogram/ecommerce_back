@@ -1,22 +1,18 @@
 {
-    "id": "/login",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "merchant on login",
-    "type": "object",
-    "additionalProperties": false,
-    "required": [
-        "mobile_number",
-        "pin"
-    ],
-    "properties": {
-        "mobile_number": {
-            "type": "string",
-            "maxLength": 10,
-            "minLength": 10
-        },
-        "pin": {
-            "type": "string",
-            "maxLength": 6
-        }
+  "id": "/login",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "user on login",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mobile_number", "password"],
+  "properties": {
+    "mobile_number": {
+      "type": "string",
+      "maxLength": 10,
+      "minLength": 10
+    },
+    "password": {
+      "type": "string"
     }
+  }
 }
