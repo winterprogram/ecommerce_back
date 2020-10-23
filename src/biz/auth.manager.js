@@ -54,24 +54,25 @@ class AuthManager extends BaseManager {
         const { mobile_number, password } = bodyParams;
         const checkExist = await this._authRepository.findOne(mobile_number);
         if (checkExist) {
-          throw new NotFound(MSG.RESOURCE_NOT_FOUND);
+          const userData = await this._authRepository.findData(mobile_number);
+          const match = await bcrypt.compare(password, userData.password);
+          if (match) {
+            //change key and salt rounds
+            const accessToken = jwt.sign(
+              {
+                user_id: userData.userId,
+                is_active: userData.isActive,
+              },
+              process.env.accessTokenSecret,
+              { expiresIn: 1209600 }
+            );
+            return {
+              accessToken,
+            };
+          }
+          throw new UnauthorizedError(MSG.INVALID_CLIENT_CREDENTIALS);
         }
-        const userData = await this._authRepository.findData(mobile_number);
-        const match = await bcrypt.compare(password, userData.password);
-        if (match) {
-          //change key and salt rounds
-          const accessToken = jwt.sign(
-            {
-              user_id: userData.user_id,
-              category: userData.category,
-            },
-            process.env.accessTokenSecret
-          );
-          return {
-            accessToken,
-          };
-        }
-        throw new UnauthorizedError(MSG.INVALID_CLIENT_CREDENTIALS);
+        throw new NotFound(MSG.RESOURCE_NOT_FOUND);
       }
       throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
     } catch (err) {
