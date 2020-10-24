@@ -1,42 +1,36 @@
-
-const Signup = require('../model/SignUp');
-const MONGOPROXY = require('../proxy/base.proxy');
-const OptionsClass = require('../proxy/options.proxy');
-
-const DbName = require('../constant/dbName');
+const Signup = require("../models/SignUp");
+const MONGOPROXY = require("../proxy/base.proxy");
+const OptionsClass = require("../proxy/options.proxy");
+const MongoEndpoint = require("../constant/proxyCommand");
+const DbName = require("../constant/dbName");
 
 class AuthRepository {
-    constructor() {
-        this.proxy = new MONGOPROXY();
-        this.options = new OptionsClass();
-    }
-    async findOne(mobile_number, email_id) {
-        try {
-            const q = {
-                $and: [
-                    {
-                        $or: [
-                            { mobile_number },
-                            { email_id }
-                        ]
-                    },
-                    {
-                        is_active: true
-                    }
-                ]
-            };
-            let body = {
-                database: DbName.DB_NAME,
-                body: q,
-                collection: DbName.USER_INFO
-            };
-            let uri = `${process.env.MONGO_PROXY_URL}/find`;
-            let options = this.options(uri, body);
-            
-            let p = await this.proxy.post(options);
-            if (!p.length) {
-                return true;
-            }
+  constructor() {
+    this.proxy = new MONGOPROXY();
+  }
+  async findOne(mobile_number, email_id) {
+    try {
+      const q = {
+        $and: [
+          {
+            $or: [{ mobile_number }, { email_id }],
+          },
+          {
+            is_active: true,
+          },
+        ],
+      };
+      let body = {
+        database: DbName.DB_NAME,
+        body: q,
+        collection: DbName.USER_INFO,
+      };
+      let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.FIND}`;
+      let options = new OptionsClass(uri, body);
+      let p = await this.proxy.post(options);
+      if (p.length) {
+        return true;
+      }
 
       return null;
     } catch (err) {
@@ -46,16 +40,26 @@ class AuthRepository {
   async saveOne(bodyParams) {
     try {
       let newUser = new Signup(bodyParams);
-      const q = await newUser.save();
+      let body = {
+        database: DbName.DB_NAME,
+        body: newUser,
+        collection: DbName.USER_INFO,
+      };
+      let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.SAVE}`;
+      let options = new OptionsClass(uri, body);
+      let q = await this.proxy.post(options);
       return q;
     } catch (err) {
+
       throw err;
     }
   }
-  async findData(mobile_number) {
+  async findData(mobile_number, email) {
     try {
-      const q = await Signup.find({ mobile_number }).lean().exec();
-      return new User(q[0]);
+      const q = await Signup.find({ $or: [{ mobile_number }, { email }] })
+        .lean()
+        .exec();
+      return q[0];
     } catch (err) {
       throw err;
     }
