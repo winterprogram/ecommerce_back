@@ -1,17 +1,16 @@
-'use strict'
-
+"use strict";
+const STATUS = require("../constant/status");
 class ValidationError extends Error {
+  constructor(message, errors) {
+    super(message);
+    this.name = this.constructor.name;
+    this.errors = errors;
+    this.status = STATUS.CLIENT_ERROR;
+  }
 
-    constructor(message, errors, status) {
-        super(message);
-        this.name = this.constructor.name;
-        this.errors = errors;
-        this.status = status || 400;
-    }
-
-    statusCode() {
-        return this.status;
-    }
+  statusCode() {
+    return this.status;
+  }
 }
 
 module.exports = ValidationError;
