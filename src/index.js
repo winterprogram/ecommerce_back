@@ -10,21 +10,6 @@ app.use(bodyParser.text());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// async function mongoDBConnection() {
-//     try {
-//         await mongoose.connect(`${process.env.MONGO_URL}`, {
-//             useNewUrlParser: true
-//         });
-//     } catch (err) {
-//         throw err;
-//     }
-// };
-
-// let db = mongoose.connection;
-// db.once("open", async function () {
-//   console.log("Mongo is connected");
-// });
-// db.on("error", console.error.bind(console, `error on `));
 
 const { authController, defaultHandler } = require("../src/controller");
 
@@ -38,7 +23,6 @@ app.post("/login", authController.userLogin);
 if (process.env.APP_ENV.trim() == "local") {
   app.listen(5000, async () => {
     console.log("Server listening at port: 5000");
-    // await mongoDBConnection();
   });
 }
 
