@@ -1,10 +1,10 @@
 'use strict'
-
+const STATUS = require('../constant/status');
 class BadRequestError extends Error {
 
     constructor(message) {
         super(message);
-        this.status = 400;
+        this.status = STATUS.CLIENT_ERROR;
     }
 
     statusCode() {

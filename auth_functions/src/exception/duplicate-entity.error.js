@@ -1,10 +1,10 @@
 'use strict'
-
+const STATUS = require('../constant/status');
 class DuplicateEntityError extends Error {
 
     constructor(message) {
         super(message);
-        this.status = 409;
+        this.status = STATUS.DUPLICATE;
     }
 
     statusCode() {

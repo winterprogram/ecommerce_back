@@ -1,10 +1,10 @@
 'use strict'
-
+const STATUS = require('../constant/status');
 class RuleViolationError extends Error {
 
     constructor(message) {
         super(message);
-        this.status = 422;
+        this.status = STATUS.RULE_VIOLATION;
     }
 
     statusCode() {

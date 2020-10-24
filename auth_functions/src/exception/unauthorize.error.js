@@ -1,10 +1,10 @@
 'use strict'
-
+const STATUS = require('../constant/status');
 class UnauthorizedError extends Error {
 
     constructor(message) {
         super(message);
-        this.status = 401;
+        this.status = STATUS.UNAUTHORIZED;
     }
 
     statusCode() {
