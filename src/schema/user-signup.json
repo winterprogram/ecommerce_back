@@ -1,7 +1,7 @@
 {
   "id": "/signup",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "merchant on signup",
+  "title": "user on signup",
   "type": "object",
   "additionalProperties": false,
   "required": ["name", "mobile_number", "dob", "email_id", "password"],
@@ -18,11 +18,13 @@
       "type": "string"
     },
     "email_id": {
-      "type": "string"
+      "type": "string",
+      "format": "email"
     },
     "password": {
       "type": "string",
-      "minLength": 6
+      "minLength": 6,
+      "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[$@#!%*?&]).{6,20}$"
     },
     "addresses": {
       "type": "object",

@@ -25,12 +25,12 @@ class AuthManager extends BaseManager {
       if (validationResult.valid) {
         let { mobile_number, email_id, password } = bodyParams;
 
-        const checkDuplicate = await this._authRepository.findOne(
+        const checkExist = await this._authRepository.findOne(
           mobile_number,
           email_id
         );
 
-        if (checkDuplicate) {
+        if (!checkExist) {
           bodyParams.user_id = randomize("Aa0", 5);
           bodyParams.password = await bcrypt.hash(password, saltRounds);
           const saveMerchantData = await this._authRepository.saveOne(
@@ -51,27 +51,33 @@ class AuthManager extends BaseManager {
       const validationResult = this.validate(SCHEMA.USER_LOGIN, bodyParams);
 
       if (validationResult.valid) {
-        const { mobile_number, password } = bodyParams;
-        const checkExist = await this._authRepository.findOne(mobile_number);
+        const { mobile_number, email_id, password: pwd } = bodyParams;
+        const checkExist = await this._authRepository.findOne(
+          mobile_number,
+          email_id
+        );
         if (checkExist) {
-          throw new NotFound(MSG.RESOURCE_NOT_FOUND);
-        }
-        const userData = await this._authRepository.findData(mobile_number);
-        const match = await bcrypt.compare(password, userData.password);
-        if (match) {
-          //change key and salt rounds
-          const accessToken = jwt.sign(
-            {
-              user_id: userData.user_id,
-              category: userData.category,
-            },
-            process.env.accessTokenSecret
+          const userData = await this._authRepository.findData(
+            mobile_number,
+            email_id
           );
-          return {
-            accessToken,
-          };
+          const { userId, password, isActive } = userData;
+          const match = await bcrypt.compare(pwd, password);
+          if (match) {
+            //change key and salt rounds
+            const accessToken = jwt.sign(
+              {
+                user_id: userId,
+                is_active: isActive,
+              },
+              process.env.accessTokenSecret,
+              { expiresIn: 1209600 }
+            );
+            return accessToken;
+          }
+          throw new UnauthorizedError(MSG.INVALID_CLIENT_CREDENTIALS);
         }
-        throw new UnauthorizedError(MSG.INVALID_CLIENT_CREDENTIALS);
+        throw new NotFound(MSG.RESOURCE_NOT_FOUND);
       }
       throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
     } catch (err) {

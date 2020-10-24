@@ -1,0 +1,17 @@
+Shivang
+1) Login - Jwt token generate, token life span, key assign user_id and is_active,
+2) Middleware - Validate Jwt token
+3) AWS KINESIS and MONGODB Proxy
+Sandeep
+1) Drawer widget mongomodel
+2) HomePage Section mongomodel
+3) AWS KINESIS and MONGODB Proxy
+
+
+List of Products
+Order History
+Support
+S3
+Mongodb Proxy
+Kinesis setup
+Lambda Function (microservice)
