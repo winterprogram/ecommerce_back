@@ -67,8 +67,8 @@ class AuthManager extends BaseManager {
             //change key and salt rounds
             const accessToken = jwt.sign(
               {
-                user_id: userId,
-                is_active: isActive,
+                userId,
+                isActive,
               },
               process.env.accessTokenSecret,
               { expiresIn: 1209600 }
