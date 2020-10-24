@@ -59,7 +59,7 @@ class AuthManager extends BaseManager {
         if (checkExist) {
           const userData = await this._authRepository.findData(
             mobile_number,
-            email
+            email_id
           );
           const { userId, password, isActive } = userData;
           const match = await bcrypt.compare(pwd, password);

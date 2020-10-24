@@ -50,16 +50,21 @@ class AuthRepository {
       let q = await this.proxy.post(options);
       return q;
     } catch (err) {
-
       throw err;
     }
   }
-  async findData(mobile_number, email) {
+  async findData(mobile_number, email_id) {
     try {
-      const q = await Signup.find({ $or: [{ mobile_number }, { email }] })
-        .lean()
-        .exec();
-      return q[0];
+      const q = { $or: [{ mobile_number }, { email_id }] };
+      let body = {
+        database: DbName.DB_NAME,
+        body: q,
+        collection: DbName.USER_INFO,
+      };
+      let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.FIND}`;
+      let options = new OptionsClass(uri, body);
+      let p = await this.proxy.post(options);
+      return p[0];
     } catch (err) {
       throw err;
     }
