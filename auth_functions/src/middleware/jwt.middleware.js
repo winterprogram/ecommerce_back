@@ -16,7 +16,7 @@ class AuthenticateJwt extends Controller {
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
       next();
     } catch (err) {
-      this.error(res, TokenExpiredError(MSG.TOKEN_EXPIRED));
+      this.error(res, TokenExpiredError(MSG.TOKEN_EXPIRED, err));
     }
   }
 }

@@ -1,9 +1,10 @@
 "use strict";
 const STATUS = require("../constant/status");
 class TokenExpireError extends Error {
-  constructor(message) {
+  constructor(message, errors) {
     super(message);
     this.status = STATUS.FORBIDDEN;
+    this.errors = errors;
   }
 
   statusCode() {
