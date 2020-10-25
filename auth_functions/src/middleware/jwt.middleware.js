@@ -5,10 +5,6 @@ const jwt = require("jsonwebtoken");
 const TokenExpiredError = require("../exception/token-expire.error");
 
 class AuthenticateJwt extends Controller {
-  constructor() {
-    super();
-    this._authManager = new AuthManager();
-  }
   static authenticateJWT(req, res, next) {
     try {
       const authHeader = req.headers.authorization;
