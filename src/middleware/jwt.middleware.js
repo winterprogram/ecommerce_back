@@ -1,28 +1,21 @@
 const Controller = require("../controller/base.controller");
 const AuthManager = require("../biz/auth.manager");
 const MSG = require("../constant/msg");
-const { TokenExpiredError } = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
+const TokenExpiredError = require("../exception/token-expire.error");
 
 class AuthenticateJwt extends Controller {
   constructor() {
     super();
     this._authManager = new AuthManager();
   }
-  authenticateJWT(req, res, next) {
-    const authHeader = req.headers.authorization;
-
-    if (authHeader) {
+  static authenticateJWT(req, res, next) {
+    try {
+      const authHeader = req.headers.authorization;
       const token = authHeader.split(" ")[1];
-
-      jwt.verify(token, accessTokenSecret, (err, user) => {
-        if (err) {
-          return this.error(res, TokenExpiredError(MSG.TOKEN_EXPIRED));
-        }
-
-        req.user = user;
-        next();
-      });
-    } else {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      next();
+    } catch (err) {
       this.error(res, TokenExpiredError(MSG.TOKEN_EXPIRED));
     }
   }
