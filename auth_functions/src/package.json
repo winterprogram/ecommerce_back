@@ -4,9 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "APP_ENV=local nodemon app.js",
+    "serve": "nodemon app.js",
     "debug": "nodemon --inspect index.js",
-    "debugWindows": "SET APP_ENV=local && nodemon --inspect index.js",
     "build": "cd .. && sam build",
     "deploy": "cd .. && sam build && sam deploy",
     "test": "mocha tests/unit/"
