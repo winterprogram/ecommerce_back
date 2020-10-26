@@ -4,41 +4,48 @@
   "title": "drawer widget",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "name",
-    "merchantId",
-    "sub_section"
-  ],
+  "required": ["list_drawer", "merchantId"],
+
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "Name of main drawer loder"
-    },
     "merchantId": {
       "type": "string"
     },
-    "sub_section": {
-      "type": "boolean"
-    },
-    "sub": {
+    "list_drawer": {
       "type": "array",
       "items": {
         "type": "object",
+        "required": ["name", "sub_section"],
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of main drawer loder"
+          },
+          "sub_section": {
+            "type": "boolean"
+          },
+          "sub": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
+    },
+
+    "is_active": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
     }
-  },
-  "is_active": {
-    "type": "boolean"
-  },
-  "created_at": {
-    "type": "string"
-  },
-  "updated_at": {
-    "type": "string"
   }
 }

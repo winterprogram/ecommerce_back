@@ -70,7 +70,7 @@ class AuthManager extends BaseManager {
                 userId,
                 isActive,
               },
-              process.env.accessTokenSecret,
+              process.env.ACCESS_TOKEN_SECRET,
               { expiresIn: 1209600 }
             );
             return accessToken;

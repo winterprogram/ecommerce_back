@@ -2,26 +2,33 @@
 const awsServerlessExpress = require("aws-serverless-express");
 const bodyParser = require("body-parser");
 const app = require("express")();
-
+const jwtAuthenticator = require("./middleware/jwt.middleware");
 require("dotenv").config();
 //body parser
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-
 const {
   drawerController,
   homePageController,
-  defaultHandler }
-  = require("../src/controller");
+  defaultHandler,
+} = require("../src/controller");
 
+const jwt = new jwtAuthenticator().authenticateJWT;
 app.get("/", defaultHandler);
 
-app.post("/drawer", drawerController.saveDrawerInfo);
+app.post(
+  "/drawer",
+  jwt,
+  drawerController.saveDrawerInfo
+);
 
-app.post('/home-page', homePageController.saveHome);
-
+app.post(
+  "/home-page",
+  jwt,
+  homePageController.saveHome
+);
 
 // # For local testing
 if (process.env.APP_ENV.trim() == "local") {

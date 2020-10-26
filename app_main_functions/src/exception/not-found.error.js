@@ -1,10 +1,11 @@
 'use strict'
-
+const STATUS = require('../constant/status');
 class NotFound extends Error {
 
     constructor(message) {
         super(message);
-        this.status = 404;
+        this.name = this.constructor.name;
+        this.status = STATUS.NOT_FOUND;
     }
 
     statusCode() {
