@@ -6,23 +6,27 @@ const drawerSchema = new Schema({
     type: String,
     required: true,
   },
-  list_drawer: [
-    {
-      name: {
-        type: String
-      },
-      sub_section: {
-        type: Boolean
-      },
-      sub: [
-        {
-          name: {
-            type: String
-          }
-        }
-      ]
-    }
-  ],
+  list_drawer: 
+  // [
+  //   {
+  //     name: String,
+  //     sub_section: Boolean,
+  //     sub: [
+  //       {
+  //         name: {
+  //           type: String
+  //         }
+  //       }
+  //     ]
+  //   }
+  // ]
+  {
+    type: Schema.Types.ObjectId,
+    ref: "DrawerNameWidget",
+  }
+
+
+  ,
   is_active: {
     type: Boolean,
     required: true,
