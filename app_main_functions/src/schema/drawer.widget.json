@@ -1,0 +1,44 @@
+{
+  "id": "/signup",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "user on signup",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "userId",
+    "sub_section"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of main drawer loder"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "sub_section": {
+      "type": "boolean"
+    },
+    "sub": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "is_active": {
+    "type": "boolean"
+  },
+  "created_at": {
+    "type": "string"
+  },
+  "updated_at": {
+    "type": "string"
+  }
+}
