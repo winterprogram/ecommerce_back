@@ -1,11 +1,10 @@
 "use strict";
 const STATUS = require("../constant/status");
-class ValidationError extends Error {
+class TokenExpireError extends Error {
   constructor(message, errors) {
     super(message);
-    this.name = this.constructor.name;
+    this.status = STATUS.FORBIDDEN;
     this.errors = errors;
-    this.status = STATUS.CLIENT_ERROR;
   }
 
   statusCode() {
@@ -13,4 +12,4 @@ class ValidationError extends Error {
   }
 }
 
-module.exports = ValidationError;
+module.exports = TokenExpireError;

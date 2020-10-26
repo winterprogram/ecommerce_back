@@ -1,15 +1,15 @@
-'use strict'
-
+"use strict";
+const STATUS = require("../constant/status");
 class UnauthorizedError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+    this.status = STATUS.UNAUTHORIZED;
+  }
 
-    constructor(message) {
-        super(message);
-        this.status = 401;
-    }
-
-    statusCode() {
-        return this.status;
-    }
+  statusCode() {
+    return this.status;
+  }
 }
 
 module.exports = UnauthorizedError;

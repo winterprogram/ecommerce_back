@@ -3,4 +3,5 @@ module.exports = {
   DUPLICATE_USER: "Duplicate User",
   RESOURCE_NOT_FOUND: "Resorce not found.",
   INVALID_CLIENT_CREDENTIALS: "Invalid username / password",
+  TOKEN_EXPIRED: "Jwt token expired",
 };
