@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded());
 
 const {
   drawerController,
+  homePageController,
   defaultHandler }
   = require("../src/controller");
 
@@ -19,6 +20,7 @@ app.get("/", defaultHandler);
 
 app.post("/drawer", drawerController.saveDrawerInfo);
 
+app.post('/home-page', homePageController.saveHome);
 
 
 // # For local testing

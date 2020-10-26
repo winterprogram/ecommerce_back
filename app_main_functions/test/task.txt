@@ -3,8 +3,8 @@ Shivang
 2) Middleware - Validate Jwt token - done
 3) AWS KINESIS and MONGODB Proxy
 Sandeep
-1) Drawer widget mongomodel
-2) HomePage Section mongomodel
+1) Drawer widget mongomodel  - done
+2) HomePage Section mongomodel  - done
 3) AWS KINESIS and MONGODB Proxy - done
 
 

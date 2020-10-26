@@ -6,7 +6,7 @@ const drawerSchema = new Schema({
     type: String,
     required: true,
   },
-  userId: {
+  merchantId: {
     type: String,
     required: true,
   },

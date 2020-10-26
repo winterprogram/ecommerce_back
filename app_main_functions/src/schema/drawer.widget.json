@@ -1,12 +1,12 @@
 {
-  "id": "/signup",
+  "id": "/drawer",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "user on signup",
+  "title": "drawer widget",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "name",
-    "userId",
+    "merchantId",
     "sub_section"
   ],
   "properties": {
@@ -14,7 +14,7 @@
       "type": "string",
       "description": "Name of main drawer loder"
     },
-    "userId": {
+    "merchantId": {
       "type": "string"
     },
     "sub_section": {
