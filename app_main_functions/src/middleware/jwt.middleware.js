@@ -1,12 +1,8 @@
-const Controller = require("../controller/base.controller");
 const MSG = require("../constant/msg");
 const jwt = require("jsonwebtoken");
 const TokenExpiredError = require("../exception/token-expire.error");
 
-class AuthenticateJwt extends Controller {
-  constructor() {
-    super();
-  }
+class AuthenticateJwt {
   authenticateJWT(req, res, next) {
     try {
       const token = req.headers.authorization;
