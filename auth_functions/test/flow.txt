@@ -1,0 +1,13 @@
+
+    a/b testing for payment page
+
+    Company Name User Signup
+
+Refer to shopify signup
+
+
+Plan_Selected
+current_cycle_paid
+payment_cycle qmy
+personal info just like User
+company name unique by app and play store
