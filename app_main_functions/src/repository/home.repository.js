@@ -1,4 +1,3 @@
-const HomePage = require("../models/homePage.schema");
 const MONGOPROXY = require("../proxy/base.proxy");
 const OptionsClass = require("../proxy/options.proxy");
 const MongoEndpoint = require("../constant/proxyCommand");
@@ -11,10 +10,9 @@ class HomePageRepository {
 
     async saveOne(bodyParams) {
         try {
-            let newHomePage = new HomePage(bodyParams);
             let body = {
                 database: DbName.DB_NAME,
-                body: newHomePage,
+                body: bodyParams,
                 collection: DbName.HOME_PAGE,
             };
             let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.SAVE}`;

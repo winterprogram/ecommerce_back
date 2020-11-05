@@ -1,4 +1,3 @@
-const DrawerWidget = require("../models/drawer.schema");
 const MONGOPROXY = require("../proxy/base.proxy");
 const OptionsClass = require("../proxy/options.proxy");
 const MongoEndpoint = require("../constant/proxyCommand");
@@ -11,10 +10,9 @@ class DrawerRepository {
 
   async saveOne(bodyParams) {
     try {
-      let newDrawer = new DrawerWidget(bodyParams);
       let body = {
         database: DbName.DB_NAME,
-        body: newDrawer,
+        body: bodyParams,
         collection: DbName.DRAWER_WIDGET,
       };
       let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.SAVE}`;
