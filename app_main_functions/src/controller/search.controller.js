@@ -13,9 +13,18 @@ class SearchController extends Controller {
     async searchProducts(req, res) {
         try {
             const searchProducts = await this._searchManager.findProducts(req.query);
-            this.ok(res, searchProducts)
+            this.ok(res, searchProducts);
         } catch (err) {
             this.error(res, err);
+        }
+    }
+
+    async findAll(req, res) {
+        try {
+            const findData = await this._searchManager.findAll(req.query);
+            this.ok(res, findData);
+        } catch (err) {
+            this.error(res, err)
         }
     }
 }

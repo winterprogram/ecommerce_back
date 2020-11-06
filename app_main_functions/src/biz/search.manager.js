@@ -17,10 +17,24 @@ class SearchManager extends BaseManager {
             let searchResult;
             const validationResult = this.validate(SCHEMA.SEARCH_PRODUCTS, queryParams);
             if (validationResult.valid) {
-                const { merchantId, characters } = queryParams
+                const { merchantId, characters } = queryParams;
                 searchResult = await this._serachRepository.searchProducts(merchantId, characters);
                 return searchResult;
             }
+            throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async findAll(queryParams) {
+        try {
+            const validationResult = this.validate(SCHEMA.FIND_PRODUCTS, queryParams);
+            if (validationResult.valid) {
+                const { merchantId, skip, limit } = queryParams;
+                let findData = this._serachRepository.findAllProducts(merchantId, skip, limit);
+                return findData;
+            };
             throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
         } catch (err) {
             throw err;

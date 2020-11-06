@@ -23,13 +23,14 @@ app.post("/drawer", jwt, drawerController.saveDrawerInfo);
 
 app.post("/home-page", jwt, homePageController.saveHome);
 
-app.get('/products', jwt, searchController.searchProducts);
+app.get('/search/products', jwt, searchController.searchProducts);
 
+app.get('/products', jwt, searchController.findAll);
 
 
 
 // # For local testing
-if (process.env.APP_ENV.trim() == "local") {
+if (process.env.APP_ENV.trim() === "local") {
   app.listen(5000, async () => {
     console.log("Server listening at port: 5000");
   });

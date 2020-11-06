@@ -2,5 +2,6 @@ module.exports = {
   FIND: "find",
   SAVE: "save",
   AGGREGATE: "aggregate",
-  SEARCH: 'search'
+  SEARCH: 'search',
+  PAGEQUERY: 'pageQuery'
 };
