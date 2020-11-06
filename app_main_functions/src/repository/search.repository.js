@@ -1,23 +1,29 @@
-const DrawerWidget = require("../models/drawer.schema");
 const MONGOPROXY = require("../proxy/base.proxy");
 const OptionsClass = require("../proxy/options.proxy");
 const MongoEndpoint = require("../constant/proxyCommand");
 const DbName = require("../constant/dbName");
 
-class DrawerRepository {
+class SearchRepository {
     constructor() {
         this.proxy = new MONGOPROXY();
     }
 
-    async searchProducts(bodyParams) {
+    async searchProducts(merchantId, characters) {
         try {
-            let newDrawer = new DrawerWidget(bodyParams);
+
+            const searchq = {
+                merchantId,
+                name: {
+                    $regex: characters,
+                    $options: 'i'
+                }
+            };
             let body = {
                 database: DbName.DB_NAME,
-                body: newDrawer,
-                collection: DbName.DRAWER_WIDGET,
+                body: searchq,
+                collection: DbName.PRODUCT,
             };
-            let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.SAVE}`;
+            let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.SEARCH}`;
             let options = new OptionsClass(uri, body);
             let q = await this.proxy.post(options);
             return q;
@@ -27,4 +33,4 @@ class DrawerRepository {
     }
 }
 
-module.exports = DrawerRepository;
+module.exports = SearchRepository;

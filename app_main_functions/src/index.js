@@ -12,23 +12,21 @@ app.use(bodyParser.urlencoded());
 const {
   drawerController,
   homePageController,
+  searchController,
   defaultHandler,
 } = require("../src/controller");
 
 const jwt = new jwtAuthenticator().authenticateJWT;
 app.get("/", defaultHandler);
 
-app.post(
-  "/drawer",
-  jwt,
-  drawerController.saveDrawerInfo
-);
+app.post("/drawer", jwt, drawerController.saveDrawerInfo);
 
-app.post(
-  "/home-page",
-  jwt,
-  homePageController.saveHome
-);
+app.post("/home-page", jwt, homePageController.saveHome);
+
+app.get('/products', jwt, searchController.searchProducts);
+
+
+
 
 // # For local testing
 if (process.env.APP_ENV.trim() == "local") {
