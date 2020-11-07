@@ -21,7 +21,7 @@ app.post("/signup", authController.userSignUp);
 
 app.post("/login", authController.userLogin);
 
-
+app.post("/company", authController.companyRegister);
 // # For local testing
 
 if (process.env.APP_ENV.trim() == "local") {

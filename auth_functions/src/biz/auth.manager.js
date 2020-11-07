@@ -23,7 +23,11 @@ class AuthManager extends BaseManager {
     try {
       const validationResult = this.validate(SCHEMA.USER_SIGNUP, bodyParams);
       if (validationResult.valid) {
-        let { mobile_number, email_id, password } = bodyParams;
+        let {
+          mobile_number,
+          email_id,
+          password
+        } = bodyParams;
 
         const checkExist = await this._authRepository.findOne(
           mobile_number,
@@ -51,7 +55,11 @@ class AuthManager extends BaseManager {
       const validationResult = this.validate(SCHEMA.USER_LOGIN, bodyParams);
 
       if (validationResult.valid) {
-        const { mobile_number, email_id, password: pwd } = bodyParams;
+        const {
+          mobile_number,
+          email_id,
+          password: pwd
+        } = bodyParams;
         const checkExist = await this._authRepository.findOne(
           mobile_number,
           email_id
@@ -61,17 +69,21 @@ class AuthManager extends BaseManager {
             mobile_number,
             email_id
           );
-          const { userId, password, isActive } = userData;
+          const {
+            userId,
+            password,
+            isActive
+          } = userData;
           const match = await bcrypt.compare(pwd, password);
           if (match) {
             //change key and salt rounds
-            const accessToken = jwt.sign(
-              {
+            const accessToken = jwt.sign({
                 userId,
                 isActive,
               },
-              process.env.ACCESS_TOKEN_SECRET,
-              { expiresIn: 1209600 }
+              process.env.ACCESS_TOKEN_SECRET, {
+                expiresIn: 1209600
+              }
             );
             return accessToken;
           }
@@ -80,6 +92,20 @@ class AuthManager extends BaseManager {
         throw new NotFound(MSG.RESOURCE_NOT_FOUND);
       }
       throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async companyRegister(bodyParams) {
+    try {
+      const validationResult = this.validate(SCHEMA.USER_LOGIN, bodyParams);
+
+      if (validationResult.valid) {
+        
+      }
+      throw new ValidationError(MSG.VALIDATION_ERROR, validationResult.errors);
+
     } catch (err) {
       throw err;
     }

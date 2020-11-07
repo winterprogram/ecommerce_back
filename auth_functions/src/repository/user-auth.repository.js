@@ -1,4 +1,3 @@
-const Signup = require("../models/SignUp");
 const MONGOPROXY = require("../proxy/base.proxy");
 const OptionsClass = require("../proxy/options.proxy");
 const MongoEndpoint = require("../constant/proxyCommand");
@@ -39,10 +38,9 @@ class AuthRepository {
   }
   async saveOne(bodyParams) {
     try {
-      let newUser = new Signup(bodyParams);
       let body = {
         database: DbName.DB_NAME,
-        body: newUser,
+        body: bodyParams,
         collection: DbName.USER_INFO,
       };
       let uri = `${process.env.MONGO_PROXY_URL}/${MongoEndpoint.SAVE}`;

@@ -26,6 +26,14 @@ class Authuser extends Controller {
             this.error(res, err);
         }
     }
+    async companyRegister(req, res) {
+        try {
+            const company = await this._authManager.companyRegister(req.body);
+            this.ok(res, company);
+        } catch (err) {
+            this.error(res, err);
+        }
+    }
 }
 
 
