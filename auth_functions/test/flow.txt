@@ -6,8 +6,27 @@
 Refer to shopify signup
 
 
-Plan_Selected
-current_cycle_paid
-payment_cycle qmy
+Plan_Selected N/A
+current_cycle_paid false
 personal info just like User
 company name unique by app and play store
+payment_cycle qmy  -- Streams (Dynamo, mongo) -- to be researched (mongo)
+
+
+
+
+Image Upload
+Product Update( image ref)
+No. of orders, customers, sales, payment
+Notification
+Payment Gateway!
+ShipRocket
+
+
+Firebase Streams to be updated instantly!
+App Drawer
+Home Section 
+
+Merchant Signup
+Optional Company details
+api endpoint company details patch
