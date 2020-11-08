@@ -6,6 +6,9 @@ Parameters:
   UserAuthTableName:
     Type: String
     Default: user_auth
+  DrawerTableName:
+    Type: String
+    Default: drawer_table
 
 Resources:
   UserAuthTable:
@@ -18,18 +21,50 @@ Resources:
           AttributeType: S
       KeySchema:
         - AttributeName: user_id
-          KeyType: RANGE
+          KeyType: HASH
       LocalSecondaryIndexes:
         - IndexName: refNumLSI
           KeySchema:
             - AttributeName: user_id
-              KeyType: RANGE
+              KeyType: HASH
           Projection:
             ProjectionType: ALL
         - IndexName: refInceptionDateLSI
           KeySchema:
             - AttributeName: user_id
-              KeyType: RANGE
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+  DrawerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      TableName: !Ref DrawerTableName
+      AttributeDefinitions:
+        - AttributeName: merchant_id
+          AttributeType: S
+        - AttributeName: drawer_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: merchant_id
+          KeyType: HASH
+        - AttributeName: drawer_id
+          KeyType: RANGE
+      LocalSecondaryIndexes:
+        - IndexName: refNumLSI
+          KeySchema:
+            - AttributeName: merchant_id
+              KeyType: HASH
+            - AttributeName: drawer_id
+               KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: refInceptionDateLSI
+          KeySchema:
+            - AttributeName: merchant_id
+              KeyType: HASH
+            - AttributeName: drawer_id
+               KeyType: RANGE
           Projection:
             ProjectionType: ALL
   
@@ -40,3 +75,8 @@ Outputs:
     Description: UserAuthTable Table Name
     Export:
       Name: !Sub ${AWS::StackName}-UserAuthTableName
+  DrawerTableName:
+    Value: !Ref DrawerTable # resource name
+    Description: DrawerTable Table Name
+    Export:
+      Name: !Sub ${AWS::StackName}-DrawerTableName
