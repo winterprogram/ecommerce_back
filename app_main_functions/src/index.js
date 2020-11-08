@@ -12,26 +12,25 @@ app.use(bodyParser.urlencoded());
 const {
   drawerController,
   homePageController,
+  searchController,
   defaultHandler,
 } = require("../src/controller");
 
 const jwt = new jwtAuthenticator().authenticateJWT;
 app.get("/", defaultHandler);
 
-app.post(
-  "/drawer",
-  jwt,
-  drawerController.saveDrawerInfo
-);
+app.post("/drawer", jwt, drawerController.saveDrawerInfo);
 
-app.post(
-  "/home-page",
-  jwt,
-  homePageController.saveHome
-);
+app.post("/home-page", jwt, homePageController.saveHome);
+
+app.get('/search/products', jwt, searchController.searchProducts);
+
+app.get('/products', jwt, searchController.findAll);
+
+
 
 // # For local testing
-if (process.env.APP_ENV.trim() == "local") {
+if (process.env.APP_ENV.trim() === "local") {
   app.listen(5000, async () => {
     console.log("Server listening at port: 5000");
   });
