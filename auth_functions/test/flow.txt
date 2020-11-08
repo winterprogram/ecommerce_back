@@ -16,7 +16,10 @@ payment_cycle qmy  -- Streams (Dynamo, mongo) -- to be researched (mongo)
 
 
 Image Upload
-Product Update( image ref)
+Product Add,Update,(flag)Delete( image ref)
+Order
+customers
+Graph
 No. of orders, customers, sales, payment
 Notification
 Payment Gateway!
@@ -25,7 +28,7 @@ ShipRocket
 
 Firebase Streams to be updated instantly!
 App Drawer
-Home Section 
+Home Section
 
 Merchant Signup
 Optional Company details
