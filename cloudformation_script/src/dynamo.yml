@@ -1,0 +1,42 @@
+---
+AWSTemplateFormatVersion: "2020-11-08"
+
+# Parameters Section
+Parameters:
+  UserAuthTableName:
+    Type: String
+    Default: user_auth
+
+Resources:
+  UserAuthTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      TableName: !Ref UserAuthTableName
+      AttributeDefinitions:
+        - AttributeName: user_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: RANGE
+      LocalSecondaryIndexes:
+        - IndexName: refNumLSI
+          KeySchema:
+            - AttributeName: user_id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: refInceptionDateLSI
+          KeySchema:
+            - AttributeName: user_id
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+  
+
+Outputs:
+  UserAuthTableName:
+    Value: !Ref UserAuthTable # resource name
+    Description: UserAuthTable Table Name
+    Export:
+      Name: !Sub ${AWS::StackName}-UserAuthTableName
