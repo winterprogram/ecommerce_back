@@ -13,6 +13,7 @@ const {
   drawerController,
   homePageController,
   searchController,
+  productController,
   defaultHandler,
 } = require("../src/controller");
 
@@ -27,6 +28,7 @@ app.get('/search/products', jwt, searchController.searchProducts);
 
 app.get('/products', jwt, searchController.findAll);
 
+app.post('/products',productController.saveProduct)
 
 
 // # For local testing

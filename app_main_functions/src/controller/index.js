@@ -2,6 +2,8 @@
 const DrawerController = require("./drawer.controller");
 const HomePageController = require('./home.controller');
 const SearchController = require('./search.controller');
+const ProductController = require('./products.controller');
+
 
 function proxy(obj) {
     let handler = {
@@ -18,6 +20,7 @@ function proxy(obj) {
 module.exports.drawerController = proxy(new DrawerController());
 module.exports.homePageController = proxy(new HomePageController());
 module.exports.searchController = proxy(new SearchController());
+module.exports.productController = proxy(new ProductController());
 module.exports.defaultHandler = (req, res) => {
     res.status(200).send("Under Construction");
 };

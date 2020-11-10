@@ -20,6 +20,7 @@
     "express-http-context": "^1.2.4",
     "jsonschema": "^1.2.8",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
     "randomatic": "^3.1.1",
     "request": "^2.88.2"
   }
